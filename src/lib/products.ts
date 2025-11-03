@@ -1,0 +1,58 @@
+import { Product } from '@/types';
+
+export const products: Product[] = [
+  {
+    id: 1,
+    name: 'Wireless Headphones',
+    description: 'High-quality wireless headphones with noise cancellation',
+    price: 99.99,
+    image: 'https://via.placeholder.com/300x300/3b82f6/ffffff?text=Headphones',
+    category: 'Electronics',
+    stock: 50,
+  },
+  {
+    id: 2,
+    name: 'Smart Watch',
+    description: 'Feature-rich smartwatch with fitness tracking',
+    price: 199.99,
+    image: 'https://via.placeholder.com/300x300/8b5cf6/ffffff?text=Smart+Watch',
+    category: 'Electronics',
+    stock: 30,
+  },
+  {
+    id: 3,
+    name: 'Laptop Backpack',
+    description: 'Durable laptop backpack with multiple compartments',
+    price: 49.99,
+    image: 'https://via.placeholder.com/300x300/10b981/ffffff?text=Backpack',
+    category: 'Accessories',
+    stock: 100,
+  },
+  {
+    id: 4,
+    name: 'Mechanical Keyboard',
+    description: 'RGB mechanical keyboard with blue switches',
+    price: 129.99,
+    image: 'https://via.placeholder.com/300x300/f59e0b/ffffff?text=Keyboard',
+    category: 'Electronics',
+    stock: 25,
+  },
+  {
+    id: 5,
+    name: 'Wireless Mouse',
+    description: 'Ergonomic wireless mouse with precision tracking',
+    price: 39.99,
+    image: 'https://via.placeholder.com/300x300/ef4444/ffffff?text=Mouse',
+    category: 'Electronics',
+    stock: 75,
+  },
+  {
+    id: 6,
+    name: 'USB-C Hub',
+    description: '7-in-1 USB-C hub with multiple ports',
+    price: 59.99,
+    image: 'https://via.placeholder.com/300x300/06b6d4/ffffff?text=USB-C+Hub',
+    category: 'Accessories',
+    stock: 60,
+  },
+];
