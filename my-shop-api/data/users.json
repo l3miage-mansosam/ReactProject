@@ -22,5 +22,13 @@
     "name": "sami mansour",
     "role": "user",
     "createdAt": "2025-11-05T09:51:32.252Z"
+  },
+  {
+    "id": 4,
+    "email": "sami.m@gmail.com",
+    "password": "1234",
+    "name": "sami toto ",
+    "role": "user",
+    "createdAt": "2025-11-05T15:36:50.754Z"
   }
 ]

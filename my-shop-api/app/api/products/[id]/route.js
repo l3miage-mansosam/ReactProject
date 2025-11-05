@@ -3,16 +3,14 @@ import { verifyToken, extractTokenFromHeader } from "@/lib/jwt";
 import { getCorsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
 
-// ✅ OPTIONS — pour les requêtes préflight (CORS)
 export async function OPTIONS(request) {
   const origin = request.headers.get("origin");
   return new NextResponse(null, { status: 204, headers: getCorsHeaders(origin) });
 }
 
-// ✅ GET — récupérer un produit par ID
 export async function GET(request, { params }) {
   const origin = request.headers.get("origin");
-  const { id } = params;
+  const { id } = await params; 
 
   const product = getProductById(id);
   if (!product) {
@@ -25,7 +23,6 @@ export async function GET(request, { params }) {
   return NextResponse.json(product, { headers: getCorsHeaders(origin) });
 }
 
-// ✅ PUT — modifier un produit (admin uniquement)
 export async function PUT(request, { params }) {
   try {
     const origin = request.headers.get("origin");
@@ -47,7 +44,7 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const { id } = params;
+    const { id } = await params; 
     const body = await request.json();
     const { name, price, description, image, category, stock } = body || {};
 
@@ -88,7 +85,6 @@ export async function PUT(request, { params }) {
   }
 }
 
-// ✅ DELETE — supprimer un produit (admin uniquement)
 export async function DELETE(request, { params }) {
   try {
     const origin = request.headers.get("origin");
@@ -110,7 +106,7 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const { id } = params;
+    const { id } = await params; 
     const products = getProducts();
     const idx = products.findIndex((p) => p.id === parseInt(id));
 
