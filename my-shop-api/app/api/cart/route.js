@@ -1,41 +1,31 @@
-import { getCart, addToCart, clearCart } from "@/data/cart";
-import { corsHeaders } from "@/lib/cors";
+import { getCartByUser, addToCart } from "@/lib/db";
+import { getCorsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
 
-const allowedOrigin = "http://localhost:5173";
-
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: corsHeaders,
-  });
+export async function OPTIONS(request) {
+  const origin = request.headers.get('origin');
+  return new NextResponse(null, { status: 204, headers: getCorsHeaders(origin) });
 }
 
 export async function GET(request) {
-  const userId = request.headers.get("x-user-id") || "guest";
-  const cart = getCart(userId);
-  
-  return NextResponse.json(cart, {
-    headers: corsHeaders,
-  });
+  const origin = request.headers.get('origin');
+  const userId = request.headers.get('x-user-id') || 'guest';
+  const items = getCartByUser(userId);
+  return NextResponse.json(items, { headers: getCorsHeaders(origin) });
 }
 
 export async function POST(request) {
   try {
-    const userId = request.headers.get("x-user-id") || "guest";
+    const origin = request.headers.get('origin');
+    const userId = request.headers.get('x-user-id') || 'guest';
     const { productId, quantity } = await request.json();
-    
-    const cart = addToCart(userId, productId, quantity);
-    
-    return NextResponse.json(
-      { message: "Produit ajouté au panier", cart },
-      { headers: corsHeaders }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Erreur lors de l'ajout au panier" },
-      { status: 400, headers: corsHeaders }
-    );
+    if (!productId) return NextResponse.json({ error: "productId requis" }, { status: 400, headers: getCorsHeaders(origin) });
+
+    const items = addToCart(userId, productId, quantity || 1);
+    return NextResponse.json({ message: "Ajouté", cart: items }, { status: 201, headers: getCorsHeaders(origin) });
+  } catch (e) {
+    const origin = request.headers.get('origin');
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500, headers: getCorsHeaders(origin) });
   }
 }
 
@@ -45,6 +35,6 @@ export async function DELETE(request) {
   
   return NextResponse.json(
     { message: "Panier vidé" },
-    { headers: corsHeaders }
+    { headers: getCorsHeaders(userId) }
   );
 }

@@ -1,43 +1,31 @@
-import { updateCartItem, removeFromCart } from "@/data/cart";
-import { corsHeaders } from "@/lib/cors";
+import { removeFromCart } from "@/lib/db";
+import { getCorsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
 
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: corsHeaders,
-  });
+// ✅ Gère la requête OPTIONS pour le CORS
+export async function OPTIONS(request) {
+  const origin = request.headers.get("origin");
+  return new NextResponse(null, { status: 204, headers: getCorsHeaders(origin) });
 }
 
-export async function PUT(request, { params }) {
+// ✅ Gère la suppression d’un produit du panier
+export async function DELETE(request, { params }) {
   try {
+    const origin = request.headers.get("origin");
+    const { productId } = params; // pas besoin de "await", params n'est pas une promesse
     const userId = request.headers.get("x-user-id") || "guest";
-    const { quantity } = await request.json();
-    const productId = parseInt(params.productId);
-    
-    const cart = updateCartItem(userId, productId, quantity);
-    
+
+    const updatedCart = removeFromCart(userId, productId);
+
     return NextResponse.json(
-      { message: "Quantité mise à jour", cart },
-      { headers: corsHeaders }
+      { message: "Produit retiré du panier", cart: updatedCart },
+      { headers: getCorsHeaders(origin) }
     );
   } catch (error) {
+    console.error("Erreur DELETE /api/cart/[productId]:", error);
     return NextResponse.json(
-      { error: "Erreur lors de la mise à jour" },
-      { status: 400, headers: corsHeaders }
+      { error: "Erreur lors de la suppression du produit" },
+      { status: 400, headers: getCorsHeaders(request.headers.get("origin")) }
     );
   }
 }
-
-export async function DELETE(request, { params }) {
-  const userId = request.headers.get("x-user-id") || "guest";
-  const productId = parseInt(params.productId);
-  
-  const cart = removeFromCart(userId, productId);
-  
-  return NextResponse.json(
-    { message: "Produit retiré du panier", cart },
-    { headers: corsHeaders }
-  );
-}
-

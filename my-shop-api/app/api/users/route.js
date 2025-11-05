@@ -1,23 +1,23 @@
 import { NextResponse } from "next/server";
-import { corsHeaders } from "@/lib/cors";
+import { getCorsHeaders } from "@/lib/cors";
 
-export async function GET() {
+export async function OPTIONS(request) {
+  const origin = request.headers.get('origin');
+  return new NextResponse(null, { status: 204, headers: getCorsHeaders(origin) });
+}
+
+export async function GET(request) {
+  const origin = request.headers.get('origin');
   return NextResponse.json(
     {
       message: "Users API",
       endpoints: {
-        "POST /api/users/login": "Connexion utilisateur",
-        "POST /api/users/register": "Inscription utilisateur",
-        "GET /api/users/profile": "Profil utilisateur (authentifié)"
+        login: "POST /api/users/login",
+        register: "POST /api/users/register",
+        profile: "GET /api/users/profile (Authorization Bearer <token>)"
       }
     },
-    { headers: corsHeaders }
+    { headers: getCorsHeaders(origin) }
   );
 }
 
-export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 204,
-    headers: corsHeaders,
-  });
-}

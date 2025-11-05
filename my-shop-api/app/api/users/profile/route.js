@@ -1,60 +1,64 @@
 import { verifyToken, extractTokenFromHeader } from "@/lib/jwt";
 import { getUsers } from "@/lib/db";
-import { corsHeaders } from "@/lib/cors";
+import { getCorsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
 
-export async function OPTIONS() {
+// ✅ OPTIONS — pour les requêtes préflight (CORS)
+export async function OPTIONS(request) {
+  const origin = request.headers.get("origin");
   return new NextResponse(null, {
     status: 204,
-    headers: corsHeaders,
+    headers: getCorsHeaders(origin),
   });
 }
 
+// ✅ GET — récupérer le profil utilisateur connecté
 export async function GET(request) {
   try {
-    const authHeader = request.headers.get('authorization');
+    const origin = request.headers.get("origin");
+
+    // Vérifie la présence du token
+    const authHeader = request.headers.get("authorization");
     const token = extractTokenFromHeader(authHeader);
-    
     if (!token) {
       return NextResponse.json(
         { error: "Token manquant" },
-        { status: 401, headers: corsHeaders }
+        { status: 401, headers: getCorsHeaders(origin) }
       );
     }
-    
+
+    // Vérifie la validité du token
     const decoded = verifyToken(token);
-    
     if (!decoded) {
       return NextResponse.json(
-        { error: "Token invalide ou expiré" },
-        { status: 401, headers: corsHeaders }
+        { error: "Token invalide" },
+        { status: 401, headers: getCorsHeaders(origin) }
       );
     }
-    
+
+    // Recherche de l'utilisateur correspondant
     const users = getUsers();
-    const user = users.find(u => u.id === decoded.id);
-    
+    const user = users.find((u) => u.id === decoded.id);
     if (!user) {
       return NextResponse.json(
         { error: "Utilisateur non trouvé" },
-        { status: 404, headers: corsHeaders }
+        { status: 404, headers: getCorsHeaders(origin) }
       );
     }
-    
+
+    // Supprime le mot de passe du retour
     const { password: _, ...userWithoutPassword } = user;
-    
+
     return NextResponse.json(
-      { 
-        message: "Profil récupéré avec succès",
-        user: userWithoutPassword
-      },
-      { headers: corsHeaders }
+      { message: "Profil récupéré avec succès", user: userWithoutPassword },
+      { headers: getCorsHeaders(origin) }
     );
   } catch (error) {
+    console.error("Erreur GET /api/users :", error);
+    const origin = request.headers.get("origin");
     return NextResponse.json(
-      { error: "Erreur lors de la récupération du profil" },
-      { status: 500, headers: corsHeaders }
+      { error: "Erreur serveur lors de la récupération du profil" },
+      { status: 500, headers: getCorsHeaders(origin) }
     );
   }
 }
-
