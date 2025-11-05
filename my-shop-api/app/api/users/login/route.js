@@ -1,14 +1,7 @@
-import { authenticateUser } from "@/data/users";
+import { authenticateUser } from "@/lib/db";
 import { generateToken } from "@/lib/jwt";
+import { corsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
-
-const allowedOrigin = "http://localhost:5173";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": allowedOrigin,
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-user-id",
-};
 
 export async function OPTIONS() {
   return new NextResponse(null, {

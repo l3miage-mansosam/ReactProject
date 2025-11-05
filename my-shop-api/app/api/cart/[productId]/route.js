@@ -1,13 +1,6 @@
 import { updateCartItem, removeFromCart } from "@/data/cart";
+import { corsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
-
-const allowedOrigin = "http://localhost:5173";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": allowedOrigin,
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-user-id",
-};
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -47,3 +40,4 @@ export async function DELETE(request, { params }) {
     { headers: corsHeaders }
   );
 }
+

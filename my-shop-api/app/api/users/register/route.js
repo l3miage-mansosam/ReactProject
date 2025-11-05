@@ -1,15 +1,7 @@
-import { users } from "@/data/users";
-import { findUserByEmail } from "@/data/users";
+import { getUsers, saveUsers, findUserByEmail } from "@/lib/db";
 import { generateToken } from "@/lib/jwt";
+import { corsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
-
-const allowedOrigin = "http://localhost:5173";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": allowedOrigin,
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-user-id",
-};
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -45,6 +37,7 @@ export async function POST(request) {
       );
     }
     
+    const users = getUsers();
     const newUser = {
       id: users.length + 1,
       email,
@@ -55,22 +48,13 @@ export async function POST(request) {
     };
     
     users.push(newUser);
+    saveUsers(users);
     
     const { password: _, ...userWithoutPassword } = newUser;
-    
-    const token = generateToken({
-      id: userWithoutPassword.id,
-      email: userWithoutPassword.email,
-      name: userWithoutPassword.name,
-      role: userWithoutPassword.role
-    });
+    const token = generateToken(userWithoutPassword);
     
     return NextResponse.json(
-      { 
-        message: "Inscription réussie",
-        user: userWithoutPassword,
-        token
-      },
+      { message: "Inscription réussie", user: userWithoutPassword, token },
       { status: 201, headers: corsHeaders }
     );
   } catch (error) {

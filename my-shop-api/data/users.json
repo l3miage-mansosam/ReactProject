@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "email": "user@test.com",
+    "password": "1234",
+    "name": "Utilisateur Test",
+    "role": "user",
+    "createdAt": "2024-01-01T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "email": "admin@test.com",
+    "password": "admin",
+    "name": "Admin Test",
+    "role": "admin",
+    "createdAt": "2024-01-01T10:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "email": "sami.mansour@gmail.com",
+    "password": "1234",
+    "name": "sami mansour",
+    "role": "user",
+    "createdAt": "2025-11-05T09:51:32.252Z"
+  }
+]

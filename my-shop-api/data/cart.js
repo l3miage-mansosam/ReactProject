@@ -1,9 +1,13 @@
+// Stockage en mémoire des paniers (objet clé-valeur)
+// Clé = userId, Valeur = tableau de produits
 let carts = {};
 
+// Récupérer le panier d'un utilisateur
 export const getCart = (userId) => {
   return carts[userId] || [];
 };
 
+// Ajouter un produit au panier
 export const addToCart = (userId, productId, quantity = 1) => {
   if (!carts[userId]) {
     carts[userId] = [];
@@ -20,6 +24,7 @@ export const addToCart = (userId, productId, quantity = 1) => {
   return carts[userId];
 };
 
+// Mettre à jour la quantité d'un produit
 export const updateCartItem = (userId, productId, quantity) => {
   if (!carts[userId]) {
     return [];
@@ -38,6 +43,7 @@ export const updateCartItem = (userId, productId, quantity) => {
   return carts[userId];
 };
 
+// Supprimer un produit du panier
 export const removeFromCart = (userId, productId) => {
   if (!carts[userId]) {
     return [];
@@ -47,6 +53,7 @@ export const removeFromCart = (userId, productId) => {
   return carts[userId];
 };
 
+// Vider complètement le panier
 export const clearCart = (userId) => {
   carts[userId] = [];
   return [];

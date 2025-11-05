@@ -1,14 +1,7 @@
 import { verifyToken, extractTokenFromHeader } from "@/lib/jwt";
-import { users } from "@/data/users";
+import { getUsers } from "@/lib/db";
+import { corsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
-
-const allowedOrigin = "http://localhost:5173";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": allowedOrigin,
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-user-id",
-};
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -38,6 +31,7 @@ export async function GET(request) {
       );
     }
     
+    const users = getUsers();
     const user = users.find(u => u.id === decoded.id);
     
     if (!user) {
@@ -63,3 +57,4 @@ export async function GET(request) {
     );
   }
 }
+
