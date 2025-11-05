@@ -3,20 +3,17 @@ import { verifyToken, extractTokenFromHeader } from "@/lib/jwt";
 import { getCorsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
 
-// ✅ OPTIONS — pour le CORS preflight
 export async function OPTIONS(request) {
   const origin = request.headers.get("origin");
   return new NextResponse(null, { status: 204, headers: getCorsHeaders(origin) });
 }
 
-// ✅ GET — récupérer tous les produits
 export async function GET(request) {
   const origin = request.headers.get("origin");
   const products = getProducts();
   return NextResponse.json(products, { headers: getCorsHeaders(origin) });
 }
 
-// ✅ POST — ajouter un produit (admin uniquement)
 export async function POST(request) {
   try {
     const origin = request.headers.get("origin");

@@ -3,7 +3,6 @@ import { generateToken } from "@/lib/jwt";
 import { getCorsHeaders } from "@/lib/cors";
 import { NextResponse } from "next/server";
 
-// ✅ OPTIONS — pour les requêtes préflight (CORS)
 export async function OPTIONS(request) {
   const origin = request.headers.get("origin");
   return new NextResponse(null, {
@@ -12,7 +11,7 @@ export async function OPTIONS(request) {
   });
 }
 
-// ✅ POST — connexion utilisateur
+//  connexion utilisateur
 export async function POST(request) {
   try {
     const origin = request.headers.get("origin");

@@ -369,5 +369,15 @@
     "stock": 15,
     "createdAt": "2025-11-05T09:45:52.583Z",
     "updatedAt": "2025-11-05T09:46:23.671Z"
+  },
+  {
+    "id": 42,
+    "name": "Nike Sportswear LD 1000 pour Femme",
+    "price": 100,
+    "description": "Acteur phare des tenues de sport, il n'y a pas plus emblématique que Nike. Découvrez certaines des baskets les plus recherchées du moment, dont les Air Max 90 et les Air Force 1 mais aussi les Blazer et les Waffle One. Pour une tenue décontractée, passez aux survêtements, t-shirts et accessoires de la sélection Nike d'ASOS, ou découvrez les leggings et les soutiens-gorge de sport de Nike Training et Nike Running pour une bonne dose de motivation en plus.",
+    "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRbOcA-523IKJJmFtTiAK_Q1Xz4czUpPZ-3pPXxDGBU4FssFT9jhhlsJkt32BrjFxUL2iiexelEh9z9HQcrs8UkdN2JH_-tHs0KxgDbb4-yDJ0lRCLmPCmZ",
+    "category": "Chaussures",
+    "stock": 20,
+    "createdAt": "2025-11-05T19:13:03.384Z"
   }
 ]

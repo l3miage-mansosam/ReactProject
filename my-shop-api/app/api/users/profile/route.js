@@ -12,7 +12,7 @@ export async function OPTIONS(request) {
   });
 }
 
-// ✅ GET — récupérer le profil utilisateur connecté
+// GET — récupérer le profil utilisateur connecté
 export async function GET(request) {
   try {
     const origin = request.headers.get("origin");
