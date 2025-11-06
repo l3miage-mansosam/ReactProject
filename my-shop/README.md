@@ -1,16 +1,71 @@
-# React + Vite
+My Shop — API & Front-End
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projet e-commerce complet avec une API Next.js et un front-end React déployés sur Vercel.
 
-Currently, two official plugins are available:
+Site en ligne
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Front-end : https://frontapp-lilac.vercel.app/login
 
-## React Compiler
+API : hébergée sur Vercel (connectée à JSONBin pour le stockage des données)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Comptes de test
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Rôle	Email	Mot de passe
+Admin	admin@test.com
+	admin
+
+
+Utilisateur	user@test.com
+	1234
+
+
+Fonctionnalités
+
+Côté admin
+
+Ajouter un produit
+
+Modifier un produit
+
+Supprimer un produit
+
+(En ligne, les fonctionnalités POST et PUT ne sont pas encore actives. En local, tout fonctionne normalement.)
+
+Côté utilisateur
+
+Consulter la liste des produits
+
+Filtrer et trier les produits
+
+Voir les détails d’un produit
+
+Gérer le panier
+
+Stack technique
+Partie	Technologie
+Front-end	React + React Router + Context API
+Back-end	Next.js 14 (Route Handlers)
+Stockage	JSONBin (données JSON distantes)
+Hébergement	Vercel
+Authentification	JWT
+Variables d’environnement
+Backend (Vercel)
+JWT_SECRET=Imasami123---
+PRODUCTS_BIN_ID=690ba4bb43b1c97be99b3d92
+USERS_BIN_ID=690ba43b43b1c97be99b3ccf
+JSONBIN_MASTER_KEY=$2a$10$1jDeR.JHxQsNb2LGfUfhfe4LfZB0y0bNx11VPUSxhwZFcy7OmTd/K
+NODE_ENV=production
+
+Frontend (Vercel)
+VITE_API_BASE_URL=https://react-project-ochre-theta.vercel.app/api
+
+Statut actuel
+
+Lecture des produits et utilisateurs : OK
+
+Connexion / Inscription : OK
+
+Interface front responsive : OK
+
+Ajout et modification de produits : en cours de correction (non fonctionnel sur la version en ligne)

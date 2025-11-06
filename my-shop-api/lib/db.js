@@ -10,6 +10,8 @@ const BASE_HEADERS = {
 
 // ---------------- PRODUITS ----------------
 export async function getProducts() {
+      console.log("📡 Lecture des produits depuis JSONBin...");
+
   const res = await fetch(`https://api.jsonbin.io/v3/b/${PRODUCTS_BIN_ID}`, {
     headers: BASE_HEADERS,
   });
@@ -46,7 +48,7 @@ export async function getUsers() {
 
 export async function saveUsers(users) {
   if (!Array.isArray(users) || users.length === 0) {
-    console.warn("⚠️ Tentative de sauvegarde vide ignorée");
+    console.warn("Tentative de sauvegarde vide ignorée");
     return;
   }
 

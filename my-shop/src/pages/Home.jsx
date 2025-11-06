@@ -13,21 +13,26 @@ const Home = () => {
   const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const data = await api.getProducts();
-        setAllProducts(data);
-        setFilteredProducts(data);
-      } catch (err) {
-        setError(err.message);
-        console.error('Erreur:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchProducts = async () => {
+    try {
+      const data = await api.getProducts();
 
-    fetchProducts();
-  }, []);
+      const productsArray = Array.isArray(data)
+        ? data
+        : data.record || [];
+
+      setAllProducts(productsArray);
+      setFilteredProducts(productsArray);
+    } catch (err) {
+      setError(err.message);
+      console.error('Erreur:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProducts();
+}, []);
 
   const handleFilterChange = ({ category, priceRange, sortBy }) => {
     let filtered = [...allProducts];

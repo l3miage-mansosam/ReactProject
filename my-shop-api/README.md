@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+My Shop — API & Front-End
 
-## Getting Started
+Projet e-commerce complet avec une API Next.js et un front-end React déployés sur Vercel.
 
-First, run the development server:
+Site en ligne
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Front-end : https://frontapp-lilac.vercel.app/login
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+API : hébergée sur Vercel (connectée à JSONBin pour le stockage des données)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Comptes de test
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+Rôle	Email	Mot de passe
+Admin	admin@test.com
+	admin
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Utilisateur	user@test.com
+	1234
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+Fonctionnalités
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Côté admin
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ajouter un produit
+
+Modifier un produit
+
+Supprimer un produit
+
+(En ligne, les fonctionnalités POST et PUT ne sont pas encore actives. En local, tout fonctionne normalement.)
+
+Côté utilisateur
+
+Consulter la liste des produits
+
+Filtrer et trier les produits
+
+Voir les détails d’un produit
+
+Gérer le panier
+
+Stack technique
+Partie	Technologie
+Front-end	React + React Router + Context API
+Back-end	Next.js 14 (Route Handlers)
+Stockage	JSONBin (données JSON distantes)
+Hébergement	Vercel
+Authentification	JWT
+Variables d’environnement
+Backend (Vercel)
+JWT_SECRET=Imasami123---
+PRODUCTS_BIN_ID=690ba4bb43b1c97be99b3d92
+USERS_BIN_ID=690ba43b43b1c97be99b3ccf
+JSONBIN_MASTER_KEY=$2a$10$1jDeR.JHxQsNb2LGfUfhfe4LfZB0y0bNx11VPUSxhwZFcy7OmTd/K
+NODE_ENV=production
+
+Frontend (Vercel)
+VITE_API_BASE_URL=https://react-project-ochre-theta.vercel.app/api
+
+Statut actuel
+
+Lecture des produits et utilisateurs : OK
+
+Connexion / Inscription : OK
+
+Interface front responsive : OK
+
+Ajout et modification de produits : en cours de correction (non fonctionnel sur la version en ligne)
